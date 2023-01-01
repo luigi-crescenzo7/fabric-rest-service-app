@@ -8,9 +8,7 @@ class IdCardContract extends Contract {
 
     async InitLedger(ctx, jsonArray) {
         const stub = ctx.stub;
-        console.log(jsonArray);
 
-        
         const array = JSON.parse(jsonArray);
 
         let i = 0;
