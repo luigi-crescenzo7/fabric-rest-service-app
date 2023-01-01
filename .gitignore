@@ -1,0 +1,7 @@
+application-javascript/.idea/*
+application-javascript/node_moules/*
+application-javascript/ChaincodeTest.iml
+application-javascript/package-log.json
+
+
+chaincode-javascript/.idea/*
