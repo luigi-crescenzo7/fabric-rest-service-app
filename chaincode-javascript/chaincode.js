@@ -4,13 +4,6 @@ const { Contract } = require('fabric-contract-api');
 const IdCard = require('./idcard.js');
 const jsonData = require('./tmp.json')
 
-//const stringify = require('json-stringify-deterministic');
-//const sorter = require('sort-keys-recursive');
-const Person = require('./person.js');
-
-//const json_data = require('./data.json');
-
-
 class IdCardContract extends Contract {
 
     async InitLedger(ctx, jsonArray) {
@@ -26,45 +19,16 @@ class IdCardContract extends Contract {
             jsonElement.key = array[i++];
             await stub.putState(jsonElement.key, Buffer.from(JSON.stringify(jsonElement)));
         }
-        /*let compositeKey;
-        let element;
-        
-                for (let i = 0; i < 5; ++i) {
-                    compositeKey = `Person`;
-                    element = new Person(stub.createCompositeKey(
-                        compositeKey,
-                        [`id${i}`, `ownerId${i}`]).replace(/\0/g, ''),
-                        `we${i}`, `we${i}`, 11, `ownerId${i}`);
-        
-                    element.docType = 'asset';
-                    await stub.putState(element.id, Buffer.from(JSON.stringify(element)));
-                    console.info(`asset with id ${element.id}`);
-                }
-
-        const objects = [
-            new Person(array[0], 'we1', 'we1', 11, 'ownerId1'),
-            new Person(array[1], 'we2', 'we2', 22, 'ownerId2'),
-            new Person(array[2], 'we3', 'we3', 33, 'ownerId3'),
-            new Person(array[3], 'we4', 'we4', 44, 'ownerId4'),
-            new Person(array[4], 'we5', 'we5', 55, 'ownerId5')
-        ];
-
-        for (let element of objects) {
-            element.docType = 'asset';
-            await stub.putState(element.id, Buffer.from(JSON.stringify(element)));
-        }*/
     }
 
 
     async CreateAsset(ctx, key, name, surname, cardNumber, sex, dateOfBirth, placeOfBirth, nationality, expiryDate, fiscalCode, ownerId) {
         const flag = await this.assetExist(ctx, key);
-        //const compositeKey = ctx.stub.createCompositeKey('Person', [key, ownerId]).replace(/\0/g, '');
         if (flag) throw new Error(`asset with key ${key} already exists`);
 
         const cardAsset = new IdCard(key, name, surname, cardNumber,
                                      sex, dateOfBirth, placeOfBirth, 
                                      nationality, expiryDate, fiscalCode, ownerId);
-        //const asset = new Person(key, name, surname, age, ownerId);
 
         cardAsset.docType = 'asset';
         const assetJson = JSON.stringify(cardAsset);
@@ -134,7 +98,6 @@ class IdCardContract extends Contract {
                 console.log(err);
                 record = strValue;
             }
-            //allResults.push({ Key: result.value.key, Record: record });
             allResults.push(record);
             result = await iterator.next();
         }

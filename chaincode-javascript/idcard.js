@@ -1,5 +1,4 @@
 class IdCard {
-    //TODO: togliere alcune proprietà..
     key;
     cardNumber;
     name;
@@ -7,17 +6,9 @@ class IdCard {
     sex;
     dateOfBirth;
     placeOfBirth;
-    //
-    height;
-    //
-    issuing;
     nationality;
     expiryDate;
-    //
-    municipality;
     fiscalCode;
-    //
-    residence;
     ownerId;
 
 
@@ -32,13 +23,9 @@ class IdCard {
         this.sex = sex;
         this.dateOfBirth = dateOfBirth;
         this.placeOfBirth = placeOfBirth;
-        //this.heigth = heigth;
-        //this.issuing = issuing;
         this.nationality = nationality;
         this.expiryDate = expiryDate;
-        //this.municipality = municipality;
         this.fiscalCode = fiscalCode;
-        //this.residence = residence;
         this.ownerId = ownerId;
 
 
@@ -87,15 +74,6 @@ class IdCard {
     set placeOfBirth(value) {
         this.placeOfBirth = value;
     }
-    /*
-    get height() {
-        return this.
-        height;
-    }
-    set height(value) {
-        this.
-        height = value;
-    }*/
     get issuing() {
         return this.issuing;
     }
