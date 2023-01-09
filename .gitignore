@@ -14,3 +14,4 @@ chaincode-javascript/package-lock.json
 chaincode-javascript/person.js
 chaincode-javascript/main.js
 chaincode-javascript/data.json
+chaincode-javascript/objects.json
