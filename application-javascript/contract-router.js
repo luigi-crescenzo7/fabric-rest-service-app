@@ -138,8 +138,6 @@ contractRouter.get('/setup', async function (req, res) {
 });
 
 contractRouter.post('/save', async function (req, res) {
-    //assegnare l'ObjectID all'asset creato
-    //console.log(`Random UUID: ${ObjectID()}`);
 
     const contract = req.app.locals.testContract;
     const network = req.app.locals.chaincodeNetwork;

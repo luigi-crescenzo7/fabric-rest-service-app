@@ -2,7 +2,8 @@
 
 const { Contract } = require('fabric-contract-api');
 const IdCard = require('./idcard.js');
-const jsonData = require('./tmp.json')
+const jsonData = require('./objects.json')
+
 
 class IdCardContract extends Contract {
 
@@ -12,7 +13,7 @@ class IdCardContract extends Contract {
         const array = JSON.parse(jsonArray);
 
         let i = 0;
-        for(let jsonElement of jsonData) {
+        for (let jsonElement of jsonData) {
             jsonElement.docType = 'asset';
             jsonElement.key = array[i++];
             await stub.putState(jsonElement.key, Buffer.from(JSON.stringify(jsonElement)));
@@ -25,8 +26,9 @@ class IdCardContract extends Contract {
         if (flag) throw new Error(`asset with key ${key} already exists`);
 
         const cardAsset = new IdCard(key, name, surname, cardNumber,
-                                     sex, dateOfBirth, placeOfBirth, 
-                                     nationality, expiryDate, fiscalCode, ownerId);
+            sex, dateOfBirth, placeOfBirth,
+            nationality, expiryDate, fiscalCode, ownerId);
+
 
         cardAsset.docType = 'asset';
         const assetJson = JSON.stringify(cardAsset);
@@ -96,6 +98,7 @@ class IdCardContract extends Contract {
                 console.log(err);
                 record = strValue;
             }
+            //allResults.push({ Key: result.value.key, Record: record });
             allResults.push(record);
             result = await iterator.next();
         }

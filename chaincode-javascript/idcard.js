@@ -12,7 +12,7 @@ class IdCard {
     ownerId;
 
 
-    constructor(id, cardNumber, name, surname,
+    constructor(id, name, surname, cardNumber,
         sex, dateOfBirth, placeOfBirth, nationality,
         expiryDate, fiscalCode, ownerId) {
 
@@ -74,12 +74,6 @@ class IdCard {
     set placeOfBirth(value) {
         this.placeOfBirth = value;
     }
-    get issuing() {
-        return this.issuing;
-    }
-    set issuing(value) {
-        this.issuing = value;
-    }
     get nationality() {
         return this.nationality;
     }
@@ -92,23 +86,11 @@ class IdCard {
     set expiryDate(value) {
         this.expiryDate = value;
     }
-    get municipality() {
-        return this.municipality;
-    }
-    set municipality(value) {
-        this.municipality = value;
-    }
     get fiscalCode() {
         return this.fiscalCode;
     }
     set fiscalCode(value) {
         this.iscalCode = value;
-    }
-    get residence() {
-        return this.residence;
-    }
-    set residence(value) {
-        this.residence = value;
     }
     get ownerId() {
         return this.ownerId;
