@@ -10,6 +10,5 @@ COPY . .
 EXPOSE 8080
 
 
-# Useful?
 FROM node:14-alpine
 ENTRYPOINT ["node", "server.js"]
