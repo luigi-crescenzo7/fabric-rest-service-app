@@ -16,10 +16,11 @@ import express from 'express';
 import https from 'https';
 import fs from 'fs'
 import cors from 'cors';
-import { contractRouter } from './contract-router.js';
+//import { contractRouter } from './contract-router.js';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
 const { INTERNAL_SERVER_ERROR, NOT_FOUND } = StatusCodes;
 import bodyParser from 'body-parser';
+import { privateRouter } from './private-router.js';
 
 
 // -------------------------------------------
@@ -47,16 +48,18 @@ async function createServer(corsOptions) {
 
     app.use(cors(corsOptions));
     app.use((req, res, next) => {
-        console.log('\n############### EXPRESS MIDDLEWARE ###############\n');
+        console.log('\n[############### EXPRESS MIDDLEWARE ###############]\n');
         console.log(`User-Agent: ${req.get('User-Agent')}`);
         console.log(`Requested route: ${req.url}`);
-        console.log(`Request method: ${req.method}`)
-        console.log('\n############### EXPRESS MIDDLEWARE ###############\n');
+        console.log(`Request method: ${req.method}`);
+        console.log(`Timestamp: ${new Date().toLocaleTimeString()}`);
+        console.log('\n[############### EXPRESS MIDDLEWARE ###############]\n');
         next();
     });
 
     app.use(bodyParser.json());
-    app.use('/api/contract', contractRouter);
+    //app.use('/api/contract', contractRouter);
+    app.use('/api/private', privateRouter);
 
     app.use((req, res) => {
         res.status(NOT_FOUND).json({
@@ -67,7 +70,7 @@ async function createServer(corsOptions) {
 
     app.use((req, res, err) => {
         res.status(INTERNAL_SERVER_ERROR).json({
-            status: err.toString(),
+            status: getReasonPhrase(INTERNAL_SERVER_ERROR),
             timestamp: new Date().toISOString()
         });
     });
