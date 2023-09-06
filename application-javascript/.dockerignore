@@ -1,0 +1,4 @@
+node_modules
+openssl_certs
+node_ssl
+.idea
