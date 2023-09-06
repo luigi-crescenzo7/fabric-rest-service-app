@@ -73,7 +73,6 @@ privateRouter.get('/setup', async function (req, res) {
         console.log('\n############### NETWORK BLOCK EVENT LISTENER ###############\n')
 
         console.log(`Network transaction block number: ${event.blockNumber}`);
-        //console.log('previous block hash: '+event.blockData.header.previous_hash) <- stampa caratteri a caso
         txid = event.blockData.data.data[0].payload.header.channel_header.tx_id;
 
         console.log('Transaction events:')
@@ -95,7 +94,6 @@ privateRouter.get('/setup', async function (req, res) {
         name: chaincodeName, collectionNames: [collectionName]
     });
 
-    // bisogna lanciare l'evento tramite setEvent nel chaincode.
     await contract.addContractListener(async (event, error) => {
         if (error) throw new Error(`Contract listener error: ${error}`);
 
@@ -122,7 +120,6 @@ privateRouter.get('/setup', async function (req, res) {
 
     await init_tx.submit();
 
-    // bisogna perforza creare prima la transazione (per ottenere l'id che serve al CommitListener) e poi fare submit()
     const tx = contract.createTransaction('CreatePrivateAsset');
     const tx2 = contract.createTransaction('CreatePrivateAsset');
 
@@ -168,10 +165,10 @@ privateRouter.get('/setup', async function (req, res) {
 
 
     logChaincodeInvocation('CreateAsset');
-    //await tx.submit(ObjectID().toHexString(), 'name', 'surname', 'CARD1', 'F', '2022-01-01', 'Tokyo', 'Italiana', '2022-01-01', 'FISC0192', 'ownerId1');
+    
     await tx.submit();
     logChaincodeInvocation('CreateAsset');
-    //await tx2.submit(ObjectID().toHexString(), 'nomone', 'cognomone', 'CARD2', 'F', '2022-01-01', 'New York', 'Italiana', '2022-01-01', 'FISC0193', 'ownerId1');
+    
     await tx2.submit();
     const endorsers = network.getChannel().getEndorsers();
 

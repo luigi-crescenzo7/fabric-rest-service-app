@@ -72,7 +72,7 @@ contractRouter.get('/setup', async function (req, res) {
         console.log('\n############### NETWORK BLOCK EVENT LISTENER ###############\n')
     
         console.log(`Network transaction block number: ${event.blockNumber}`);
-        //console.log('previous block hash: '+event.blockData.header.previous_hash) <- stampa caratteri a caso
+
         txid = event.blockData.data.data[0].payload.header.channel_header.tx_id;
         
         console.log('Transaction events:')
@@ -89,7 +89,7 @@ contractRouter.get('/setup', async function (req, res) {
     await network.addBlockListener(listener);
 
     const contract = network.getContract(chaincodeName);
-    // bisogna lanciare l'evento tramite setEvent nel chaincode.
+
     await contract.addContractListener(async (event, error) => {
         if (error) throw new Error(`Contract listener error: ${error}`);
 
@@ -110,7 +110,6 @@ contractRouter.get('/setup', async function (req, res) {
     }
     await contract.submitTransaction('InitLedger', JSON.stringify(arr));
 
-    // bisogna perforza creare prima la transazione (per ottenere l'id che serve al CommitListener) e poi fare submit()
     const tx = contract.createTransaction('CreateAsset');
     const tx2 = contract.createTransaction('CreateAsset');
     let txid1 = tx.getTransactionId();
@@ -167,8 +166,6 @@ contractRouter.post('/save', async function (req, res) {
     res.header('Content-Type', 'application/json');
     res.status(StatusCodes.OK).json(JSON.parse(result.toString()));
 });
-
-
 
 
 contractRouter.post('/asset', async function (req, res) {
